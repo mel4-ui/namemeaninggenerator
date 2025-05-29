@@ -34,7 +34,6 @@ body {
     flex-direction: column;
     height: 100vh;
     overflow: hidden;
-    border: 2px solid red;
 }
 .container {
     flex: 1;
