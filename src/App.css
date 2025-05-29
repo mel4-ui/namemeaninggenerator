@@ -142,7 +142,7 @@ body {
 }
 
 form {
-  /* margin: 2rem; */
+  padding: 0 1rem 1rem 1rem;
   /* border: 2px solid yellow; */
   display: flex;
   width: 100%;

@@ -185,11 +185,11 @@ const shareImage = async () => {
         </div>} 
       </div>
   	  }
+    </div>
       <form onSubmit={handleSubmit}>
         <input type="text" onChange={(e) => {setName(e.target.value)}} value={name} placeholder='Enter your name...'/>
         <button className='submit'><FaArrowRight /></button>
       </form>
-    </div>
       </div>
     </>
   )
