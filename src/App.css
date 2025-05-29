@@ -42,7 +42,7 @@ body {
   padding: 0 1.2rem 1.2rem 1.2rem;
   margin: 2rem;
   display: flex;
-  /* height: calc(100vh - 10vh); Full height minus navbar */
+  height: calc(100vh - 10vh); 
   margin: 0 auto;
   flex-direction: column;
   justify-content: space-between;
