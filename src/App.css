@@ -45,8 +45,8 @@ body {
   padding: 0 1.2rem 1.2rem 1.2rem;
   margin: 2rem;
   display: flex;
-  /* height: calc(100vh - 10vh);  */
-  height: 100%;
+  height: calc(100vh - 20vh); 
+  /* height: 80%; */
   margin: 0 auto;
   flex-direction: column;
   justify-content: space-between;
