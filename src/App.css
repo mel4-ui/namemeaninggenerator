@@ -1,0 +1,159 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+body {
+  background-color: #131313;
+}
+.navbar-brand{
+    font-family: 'Playfair Display', serif;
+}
+.logo{
+    margin: 0 0 0 15px;
+}
+.logo img{
+    width: 30px;
+    height: auto;
+}
+.navbar {
+  height: 10vh;
+  width: 100%;
+  background-color: black;
+  color: white;
+  display: flex;
+  align-items: center;
+}
+.container {
+  max-width: 600px;
+  padding: 0 1.2rem 1.2rem 1.2rem;
+  margin: 2rem;
+  display: flex;
+  height: calc(100vh - 10vh); /* Full height minus navbar */
+  margin: 0 auto;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+}
+.main-heading{
+    font-family: 'Playfair Display', serif;
+    margin: 2rem 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.main-heading h1{
+    text-align: center;
+    font-size: 1.7em;
+    line-height: 1.4;
+    font-weight: 700;
+}
+.main-heading p{
+    text-align: center;
+    font-size: 2.5em;
+    line-height: 1.4;
+    background: linear-gradient(to right, #ffb6c1, #b3cde0, #c1f0f6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 700;
+}
+
+.output-container {
+  width: 100%;
+  /* margin-bottom: 20px; */
+  overflow-y: scroll;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.output {
+  color: white !important;
+  padding: 1.2rem;
+}
+.output p {
+  /* color: red; */
+}
+.output-name-intro {
+  margin-bottom: 20px;
+}
+.output-name-intro::after {
+  content: "";
+  display: block;
+  height: 1px;
+  background: #eee;
+  margin: 20px 0;
+}
+.output-name-heading {
+  text-transform: capitalize;
+  margin: 0;
+}
+.output-name-pronunciation {
+  margin-bottom: 20px;
+}
+.output-name-meaning {
+  text-align: justify;
+}
+ /* HERE IT IS */
+.output-name-image {
+  margin-bottom: 10px;
+  border-radius: 10px;
+  padding: 1.5rem;
+  color: #000;
+}
+.output-buttons {
+  margin-bottom: 20px;
+  display: flex;
+  gap: 12px;
+}
+.output-buttons button {
+  background: transparent;
+  color: white;
+  border-radius: 20px;
+  justify-content: center;
+  border: none;
+  font-size: 1.3em;
+}
+.output-name-message {
+  margin-bottom: 20px;
+}
+.output-name-nicknames {
+  font-style: italic;
+}
+
+form {
+  /* margin: 2rem; */
+  /* border: 2px solid yellow; */
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+form input {
+  margin-right: 10px;
+  background: #000;
+  border: none;
+  padding: 12px 16px;
+  border-radius: 8px;
+  width: 87%;
+  font-size: 20px;
+  color: #fff;
+}
+form button.submit {
+  color: black;
+  border-radius: 50%;
+  border: 2px solid white;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}

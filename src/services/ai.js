@@ -1,0 +1,40 @@
+import { GoogleGenAI } from "@google/genai";
+
+
+const ai = new GoogleGenAI({
+      apiKey: "AIzaSyA5WOlLVRvDyO7Y-mUOMUZW7kUlMMATGQQ",
+    });
+
+async function generateMeaning(name) {
+  const response = await ai.models.generateContent({
+    model: "gemini-2.0-flash",
+    contents: `You are an expert in names and their meanings.
+
+Given a name, provide the following in a warm and friendly tone:
+1. A simple and heartfelt **meaning** of the name in one or two sentences.
+2. A sweet and **uplifting message** based on that meaning to brighten someone's day.
+3. Optionally, suggest **2–3 creative, friendly nicknames** derived from the name (if possible).
+
+Use **Markdown** formatting for the output.
+
+Format your response like this:
+
+**Meaning:** <one or two sentences about the meaning>
+
+**Pronunciation**: <The pronunciation of the name using the International Phonetic Alphabet (IPA), as shown in dictionaries (e.g., /ˈmɛl.wɪn/).>
+
+**Message:** <a kind and uplifting sentence for the person with this name>
+
+**Nicknames:** <comma-separated list of nicknames, or _None_ if not applicable>  
+
+**Name:** \`${name}\`
+`
+
+  });
+  console.log(response.text);
+  return response;
+}
+
+export default generateMeaning
+
+  
