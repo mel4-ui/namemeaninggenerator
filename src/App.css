@@ -22,18 +22,26 @@ body {
 }
 .navbar {
   height: 10vh;
+  min-height: 60px;
   width: 100%;
   background-color: black;
   color: white;
   display: flex;
   align-items: center;
 }
+.page-wrapper{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+}
 .container {
+    flex: 1;
   max-width: 600px;
   padding: 0 1.2rem 1.2rem 1.2rem;
   margin: 2rem;
   display: flex;
-  height: calc(100vh - 10vh); /* Full height minus navbar */
+  /* height: calc(100vh - 10vh); Full height minus navbar */
   margin: 0 auto;
   flex-direction: column;
   justify-content: space-between;
