@@ -9,10 +9,12 @@
 }
 html {
   height: 100%;
+  overscroll-behavior: none;
 }
 body {
     height: 100%;
   background-color: #131313;
+  overscroll-behavior: none;
 }
 .navbar-brand{
     font-family: 'Playfair Display', serif;
@@ -25,7 +27,7 @@ body {
     height: auto;
 }
 .navbar {
-    position: fixed;
+    /* position: fixed; */
   height: 10vh;
   min-height: 60px;
   width: 100%;
@@ -41,18 +43,20 @@ body {
     overflow: hidden;
 }
 .container {
+    flex: 1;
+    border: 2px solid red;
+    /* position: relative; */
   max-width: 600px;
   padding: 0 1.2rem 1.2rem 1.2rem;
   margin: 2rem;
   display: flex;
-  /* height: calc(100vh - 20vh);  */
-  height: 100%;
+  height: calc(100vh - 10vh); 
+  /* height: 100%; */
   margin: 0 auto;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
   color: white;
-  border: 2px solid red;
 }
 .main-heading{
     font-family: 'Playfair Display', serif;
@@ -81,9 +85,10 @@ body {
 }
 
 .output-container {
+    flex: 1;
   width: 100%;
   /* margin-bottom: 20px; */
-  overflow-y: scroll;
+  overflow-y: auto;
   color: white;
   display: flex;
   flex-direction: column;
@@ -144,13 +149,14 @@ body {
 }
 
 form {
-  padding: 0 1rem 1rem 1rem;
+  /* padding: 0 1rem 1rem 1rem; */
   /* border: 2px solid yellow; */
   display: flex;
   width: 100%;
   justify-content: space-between;
   margin-top: auto;
-  position: fixed;
+  /* position: fixed; */
+  position: sticky;
   bottom: 0;
 }
 form input {
