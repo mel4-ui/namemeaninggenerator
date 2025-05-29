@@ -27,7 +27,7 @@ body {
     height: auto;
 }
 .navbar {
-    /* position: fixed; */
+    position: sticky;
   height: 10vh;
   min-height: 60px;
   width: 100%;
