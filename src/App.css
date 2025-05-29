@@ -25,6 +25,7 @@ body {
     height: auto;
 }
 .navbar {
+    position: sticky;
   height: 10vh;
   min-height: 60px;
   width: 100%;
@@ -149,6 +150,8 @@ form {
   width: 100%;
   justify-content: space-between;
   margin-top: auto;
+  position: fixed;
+  bottom: 0;
 }
 form input {
   margin-right: 10px;
