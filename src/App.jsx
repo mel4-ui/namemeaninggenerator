@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { db } from "./services/firebase";
-import { collection, addDoc, Timestamp } from "firebase/firestore";
+import {
+  collection,
+  addDoc,
+  Timestamp,
+  doc,
+  updateDoc,
+} from "firebase/firestore";
 import html2canvas from "html2canvas";
 import generateMeaning from "./services/ai";
 import NavBar from "./common/NavBar";
@@ -9,15 +15,33 @@ import { FaArrowRight } from "react-icons/fa";
 import ReactMarkdown from "react-markdown";
 import { MdOutlineFileDownload } from "react-icons/md";
 import { IoShareSocial } from "react-icons/io5";
-import { ClipLoader } from "react-spinners"
+import { ClipLoader } from "react-spinners";
+import PronounceButton from "./services/PronounceButton";
+import { BiCopy } from "react-icons/bi";
+import { FaCheck } from "react-icons/fa6";
+import { FaRegHeart } from "react-icons/fa";
+import { FaHeart } from "react-icons/fa";
+import { ref, uploadString, getDownloadURL } from "firebase/storage";
 
 const App = () => {
   const [name, setName] = useState("");
+  const [generatedName, setGeneratedName] = useState("");
   const [data, setData] = useState(null);
   const [partsOfResponse, setPartsOfResponse] = useState(null);
   const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState(null);
   const [bgColor, setBgColor] = useState("#ffffff");
+  const [currentDocId, setCurrentDocId] = useState(null);
+  const [liked, setLiked] = useState(false);
+
+  useEffect(() => {
+    let uid = localStorage.getItem("user_id");
+
+    if (!uid) {
+      uid = crypto.randomUUID();
+      localStorage.setItem("user_id", uid);
+    }
+  }, []);
 
   useEffect(() => {
     const generateImage = async () => {
@@ -25,7 +49,10 @@ const App = () => {
       if (!element) return;
 
       const canvas = await html2canvas(element, {
-        scale: 2,
+        scale: 3,
+        ignoreElements: (element) => {
+          return element.classList?.contains("no-screenshot");
+        },
       });
 
       const image = canvas.toDataURL("image/png");
@@ -56,6 +83,12 @@ const App = () => {
       return;
     }
 
+    // capitalize the name
+    const capitalizedName = capitalizeName(name);
+
+    // save the name
+    setGeneratedName(capitalizedName);
+
     //pick a random pastel color
     const randomColor =
       pastelColors[Math.floor(Math.random() * pastelColors.length)];
@@ -66,7 +99,18 @@ const App = () => {
     setData(response.text);
     setPartsOfResponse(makePartsOfResponse(response.text));
     setLoading(false);
-    await saveToFirestore(name, response.text);
+    // await saveToFirestore(name, response.text);
+    const docId = await saveToFirestore(name, response.text);
+    setCurrentDocId(docId.id);
+    setLiked(false);
+  };
+
+  const capitalizeName = (nameToBeCaptalized) => {
+    if (!nameToBeCaptalized) return "";
+    return (
+      nameToBeCaptalized.charAt(0).toUpperCase() +
+      nameToBeCaptalized.slice(1).toLowerCase()
+    );
   };
 
   const makePartsOfResponse = (responseText) => {
@@ -96,12 +140,19 @@ const App = () => {
   };
 
   const saveToFirestore = async (name, response) => {
+    const user_id = localStorage.getItem("user_id");
+
     try {
-      await addDoc(collection(db, "names"), {
+      // save
+      const docRef = await addDoc(collection(db, "users", user_id, "names"), {
+        user_id: user_id,
         name: name,
         response: response,
+        liked: false,
         timestamp: Timestamp.now(),
       });
+
+      return docRef;
     } catch (error) {
       console.error("Error saving to firestore: " + error);
     }
@@ -110,7 +161,7 @@ const App = () => {
   const downloadImage = async () => {
     const link = document.createElement("a");
     link.href = imageUrl;
-    link.download = `${name}_meaning.png`;
+    link.download = `${generatedName}_meaning.png`;
     link.click();
   };
 
@@ -118,30 +169,89 @@ const App = () => {
     try {
       const response = await fetch(imageUrl);
       const blob = await response.blob();
-      const file = new File([blob], `${name}_meaning.png`, {
+      const file = new File([blob], `${generatedName}_meaning.png`, {
         type: "image/png",
       });
 
       if (navigator.canShare && navigator.canShare({ files: [file] })) {
         await navigator.share({
           files: [file],
-          title: `name meaning for ${name}`,
-          text: `Check out the meaning of "${name}" 💫`,
+          title: `name meaning for ${generatedName}`,
+          text: `Check out the meaning of "${generatedName}" 💫`,
         });
       } else {
-        alert("Sharing not supoorted on this device");
+        console.log("Sharing not supoorted on this device");
       }
     } catch (error) {
       console.error("Share failed:", error);
-      alert("something went wrong while sharing");
     }
+  };
+
+  const handleLike = async () => {
+    if (!currentDocId) return;
+
+    const user_id = localStorage.getItem("user_id");
+    const docRef = doc(db, "users", user_id, "names", currentDocId);
+    const newLikeStatus = !liked;
+
+    try {
+      await updateDoc(docRef, { liked: newLikeStatus });
+      setLiked(newLikeStatus);
+    } catch (err) {
+      console.error("Error updating like status: ", err);
+    }
+  };
+
+  const LikeButton = () => {
+    return (
+      <button onClick={handleLike} className="copy-button">
+        {liked ? <FaHeart /> : <FaRegHeart />}
+      </button>
+    );
+  };
+
+  const CopyButton = () => {
+    const [copied, setCopied] = useState(false);
+
+    const handleCopy = () => {
+      if (!partsOfResponse) return;
+
+      const textToCopy = [
+        `Name: ${generatedName}`,
+        `Pronunciation: ${partsOfResponse.pronunciation}`,
+        `Meaning: ${partsOfResponse.meaning}`,
+        `Message: ${partsOfResponse.message}`,
+        `Nicknames: ${partsOfResponse.nicknames}`,
+      ].join("\n\n");
+
+      navigator.clipboard
+        .writeText(textToCopy.trim())
+        .then(() => {
+          //toast copied to clipboard
+          setCopied(true);
+
+          setTimeout(() => {
+            setCopied(false);
+          }, 2000);
+        })
+        .catch((err) => {
+          console.error("Failed to copy: ", err);
+        });
+    };
+
+    return (
+      <button onClick={handleCopy} className="copy-button">
+        {copied ? <FaCheck /> : <BiCopy />}
+      </button>
+    );
   };
 
   return (
     <>
-        <NavBar />
-        <div className="container">
-          {loading || !partsOfResponse && (
+      <NavBar />
+      <div className="container">
+        {loading ||
+          (!partsOfResponse && (
             <div className="main-heading">
               <h1>
                 What’s in a name?
@@ -149,57 +259,65 @@ const App = () => {
               </h1>
               <p>Your whole vibe</p>
             </div>
-          )}
-          {loading ? (
-            <p>
-              <ClipLoader
-                color={"#ffffff"}
-                loading={loading}
-                size={150}
-              />
-            </p>
-          ) : (
-            <div className="output-container">
-              {partsOfResponse && (
-                <div id="sharable" className="output">
-                  <div className="output-name-intro">
-                    <ReactMarkdown>{partsOfResponse.intro}</ReactMarkdown>
+          ))}
+        {loading ? (
+          <p className="loader">
+            <ClipLoader color={"#ffffff"} loading={loading} size={50} />
+          </p>
+        ) : (
+          <div className="output-container">
+            {partsOfResponse && (
+              <div id="sharable" className="output">
+                <div className="output-name-intro">
+                  <ReactMarkdown>{partsOfResponse.intro}</ReactMarkdown>
+                </div>
+                <div
+                  id="sharable-image"
+                  className="output-name-image"
+                  style={{ backgroundColor: bgColor }}
+                >
+                  <h1 className="output-name-heading">
+                    {generatedName}
+                    <span className="no-screenshot">
+                      <PronounceButton text={generatedName} />
+                    </span>
+                  </h1>
+                  <div className="output-name-pronunciation">
+                    <ReactMarkdown>
+                      {partsOfResponse.pronunciation}
+                    </ReactMarkdown>
                   </div>
-                  <div
-                    id="sharable-image"
-                    className="output-name-image"
-                    style={{ backgroundColor: bgColor }}
-                  >
-                    <h1 className="output-name-heading">{name}</h1>
-                    <div className="output-name-pronunciation">
-                      <ReactMarkdown>
-                        {partsOfResponse.pronunciation}
-                      </ReactMarkdown>
-                    </div>
-                    <div className="output-name-meaning">
-                      <ReactMarkdown>{partsOfResponse.meaning}</ReactMarkdown>
-                    </div>
+                  <div className="output-name-meaning">
+                    <ReactMarkdown>{partsOfResponse.meaning}</ReactMarkdown>
                   </div>
-                  {imageUrl && (
-                    <div className="output-buttons">
-                      <button onClick={downloadImage}>
-                        <MdOutlineFileDownload />
-                      </button>
-                      <button onClick={shareImage}>
-                        <IoShareSocial />
-                      </button>
-                    </div>
-                  )}
-                  <div className="output-name-message">
-                    <ReactMarkdown>{partsOfResponse.message}</ReactMarkdown>
+                </div>
+                {imageUrl && (
+                  <div className="output-buttons">
+                    <button onClick={downloadImage}>
+                      <MdOutlineFileDownload />
+                    </button>
+                    <button onClick={shareImage}>
+                      <IoShareSocial />
+                    </button>
                   </div>
-                  <div className="output-name-nicknames">
+                )}
+                <div className="output-name-message">
+                  <ReactMarkdown>{partsOfResponse.message}</ReactMarkdown>
+                </div>
+                <div className="output-name-nicknames">
+                  <p>Thoughtfully chosen pet names that echo your essence: </p>
+                  <div className="nicknames">
                     <ReactMarkdown>{partsOfResponse.nicknames}</ReactMarkdown>
                   </div>
                 </div>
-              )}
-            </div>
-          )}
+                <div className="like-and-copy-buttons">
+                  <LikeButton />
+                  <CopyButton />
+                </div>
+              </div>
+            )}
+          </div>
+        )}
         <form onSubmit={handleSubmit}>
           <input
             type="text"
@@ -208,12 +326,20 @@ const App = () => {
             }}
             value={name}
             placeholder="Enter your name..."
-            />
-          <button className="submit">
+          />
+          <button
+            className="submit"
+            type="submit"
+            disabled={loading || !name.trim()}
+          >
             <FaArrowRight />
           </button>
         </form>
-            </div>
+      <div className="app-footer-note no-screenshot">
+        Melwyn made me so you could flex your name meaning. Made for fun.
+        Powered by Gemini.
+      </div>
+      </div>
     </>
   );
 };

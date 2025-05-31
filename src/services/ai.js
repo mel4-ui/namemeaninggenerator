@@ -11,9 +11,10 @@ async function generateMeaning(name) {
     contents: `You are an expert in names and their meanings.
 
 Given a name, provide the following in a warm and friendly tone:
+Start with a short, cool intro — something chill, clever, or aesthetic like.
 1. A simple and heartfelt **meaning** of the name in one or two sentences.
 2. A sweet and **uplifting message** based on that meaning to brighten someone's day.
-3. Optionally, suggest **2–3 creative, friendly nicknames** derived from the name (if possible).
+3. Suggest 2–3 affectionate nicknames that aren’t directly derived from the name but reflect the person’s essence — inspired by their personality, emotional tone, or the meaning behind the name. Keep them rooted in Indian culture. Avoid joke-like or exaggerated names.
 
 Use **Markdown** formatting for the output.
 
