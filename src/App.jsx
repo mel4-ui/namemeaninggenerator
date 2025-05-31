@@ -21,6 +21,7 @@ import { BiCopy } from "react-icons/bi";
 import { FaCheck } from "react-icons/fa6";
 import { FaRegHeart } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa";
+import { Toaster } from 'react-hot-toast';
 
 const App = () => {
   const [name, setName] = useState("");
@@ -94,7 +95,12 @@ const App = () => {
     setBgColor(randomColor);
 
     setLoading(true);
+    try{
     const response = await generateMeaning(name);
+    }catch(error){
+      toast.error('Whoa, too many vibes at once! The engine\'s catching its breath. Try again in a few seconds!!');
+      setLoading(false)
+    }
     setData(response.text);
     setPartsOfResponse(makePartsOfResponse(response.text));
     setLoading(false);
@@ -339,6 +345,7 @@ const App = () => {
         Powered by Gemini.
       </div>
       </div>
+       <Toaster position="top-center" reverseOrder={false} />
       </div>
   );
 };
