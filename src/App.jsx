@@ -247,7 +247,7 @@ const App = () => {
   };
 
   return (
-    <>
+    <div className="page-wrapper">
       <NavBar />
       <div className="container">
         {loading ||
@@ -318,6 +318,7 @@ const App = () => {
             )}
           </div>
         )}
+          </div>
         <div className="form-container">
         <form onSubmit={handleSubmit}>
           <input
@@ -341,8 +342,7 @@ const App = () => {
         Powered by Gemini.
       </div>
       </div>
-      </div>
-    </>
+    </div>
   );
 };
 

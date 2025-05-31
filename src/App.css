@@ -16,6 +16,12 @@ body {
   background-color: #131313;
   overscroll-behavior: none;
 }
+.page-wrapper{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+}
 .navbar-brand{
     font-family: 'Playfair Display', serif;
 }
@@ -27,7 +33,7 @@ body {
     height: auto;
 }
 .navbar {
-    position: sticky;
+    /* position: sticky; */
   height: 10vh;
   min-height: 60px;
   width: 100%;
@@ -35,20 +41,16 @@ body {
   color: white;
   display: flex;
   align-items: center;
-  top: 0;
+  /* top: 0; */
+  flex-shrink: 0;
 }
-.page-wrapper{
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    overflow: hidden;
-}
+
 .container {
     flex: 1;
     /* position: relative; */
   max-width: 600px;
-  padding: 0 1.2rem 1.2rem 1.2rem;
-  margin: 2rem;
+  padding: 1.2rem;
+  margin: 0 auto;
   display: flex;
   height: calc(100vh - 10vh); 
   /* height: 100%; */
@@ -57,6 +59,7 @@ body {
   justify-content: space-between;
   align-items: center;
   color: white;
+  overflow-y: auto;
 }
 .main-heading{
     font-family: 'Playfair Display', serif;
@@ -190,9 +193,10 @@ align-items: center;
   font-size: 1.3em;
 }
 .form-container{
-  position: sticky;
-  bottom: 0;
-
+  /* position: sticky; */
+  /* bottom: 0; */
+flex-shrink: 0;
+padding: 1rem;
 }
 form {
   /* padding: 0 1rem 1rem 1rem; */
