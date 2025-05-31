@@ -1,6 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&display=swap');
-@import "tailwindcss";
 
 * {
   margin: 0;
@@ -18,7 +17,6 @@ body {
   overscroll-behavior: none;
 }
 .page-wrapper{
-  position: relative;
     display: flex;
     flex-direction: column;
     height: 100vh;
@@ -35,25 +33,27 @@ body {
     height: auto;
 }
 .navbar {
+    position: sticky;
   height: 10vh;
-  position: relative;
-  top: 0;
   min-height: 60px;
   width: 100%;
   background-color: black;
   color: white;
   display: flex;
   align-items: center;
+  top: 0;
   flex-shrink: 0;
 }
 
 .container {
-  position: relative;
     flex: 1;
+    /* position: relative; */
   max-width: 600px;
-  padding: 1.2rem;
-  margin: 0 auto;
+  padding: 0 1.2rem 1.2rem 1.2rem;
+  margin: 2rem;
   display: flex;
+  height: calc(100vh - 10vh); 
+  /* height: 100%; */
   margin: 0 auto;
   flex-direction: column;
   justify-content: space-between;
@@ -194,8 +194,7 @@ align-items: center;
 .form-container{
   position: sticky;
   bottom: 0;
-flex-shrink: 0;
-padding: 0 1rem 1rem 1rem;
+
 }
 form {
   /* padding: 0 1rem 1rem 1rem; */
@@ -203,7 +202,7 @@ form {
   display: flex;
   width: 100%;
   justify-content: space-between;
-  /* margin-top: auto; */
+  margin-top: auto;
   /* position: fixed; */
 }
 form input {

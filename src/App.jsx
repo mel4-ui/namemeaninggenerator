@@ -21,7 +21,6 @@ import { BiCopy } from "react-icons/bi";
 import { FaCheck } from "react-icons/fa6";
 import { FaRegHeart } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa";
-import { ref, uploadString, getDownloadURL } from "firebase/storage";
 
 const App = () => {
   const [name, setName] = useState("");
@@ -247,9 +246,9 @@ const App = () => {
   };
 
   return (
-    <div className="page-wrapper border-2 border-red-500 h-screen flex flex-col overflow-hidden">
+    <div className="page-wrapper">
       <NavBar />
-      <div className="container flex-1 px-4 py-6 border-2 border-yellow-500 max-w-3xl mx-auto w-full">
+      <div className="container">
         {loading ||
           (!partsOfResponse && (
             <div className="main-heading">
@@ -319,7 +318,7 @@ const App = () => {
           </div>
         )}
           </div>
-        <div className="form-container p-4">
+        <div className="form-container">
         <form onSubmit={handleSubmit}>
           <input
             type="text"
