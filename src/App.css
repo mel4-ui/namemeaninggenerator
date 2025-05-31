@@ -33,7 +33,7 @@ body {
     height: auto;
 }
 .navbar {
-    /* position: sticky; */
+    position: sticky;
   height: 10vh;
   min-height: 60px;
   width: 100%;
@@ -41,7 +41,7 @@ body {
   color: white;
   display: flex;
   align-items: center;
-  /* top: 0; */
+  top: 0;
   flex-shrink: 0;
 }
 
