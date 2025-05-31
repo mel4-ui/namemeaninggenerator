@@ -193,8 +193,8 @@ align-items: center;
   font-size: 1.3em;
 }
 .form-container{
-  /* position: sticky; */
-  /* bottom: 0; */
+  position: sticky;
+  bottom: 0;
 flex-shrink: 0;
 padding: 1rem;
 }
