@@ -318,6 +318,7 @@ const App = () => {
             )}
           </div>
         )}
+        <div className="form-container">
         <form onSubmit={handleSubmit}>
           <input
             type="text"
@@ -338,6 +339,7 @@ const App = () => {
       <div className="app-footer-note no-screenshot">
         Melwyn made me so you could flex your name meaning. Made for fun.
         Powered by Gemini.
+      </div>
       </div>
       </div>
     </>

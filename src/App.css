@@ -189,7 +189,11 @@ align-items: center;
   border: none;
   font-size: 1.3em;
 }
+.form-container{
+  position: sticky;
+  bottom: 0;
 
+}
 form {
   /* padding: 0 1rem 1rem 1rem; */
   /* border: 2px solid yellow; */
@@ -198,8 +202,6 @@ form {
   justify-content: space-between;
   margin-top: auto;
   /* position: fixed; */
-  position: sticky;
-  bottom: 0;
 }
 form input {
   margin-right: 10px;
@@ -228,5 +230,6 @@ form button.submit:disabled{
 }
 .app-footer-note{
   margin-top: 5px;
+  color: #6b7280;
   text-align: center;
 }
