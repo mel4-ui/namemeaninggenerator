@@ -60,6 +60,7 @@ body {
   align-items: center;
   color: white;
   overflow-y: auto;
+  border: 2px solid red;
 }
 .main-heading{
     font-family: 'Playfair Display', serif;
