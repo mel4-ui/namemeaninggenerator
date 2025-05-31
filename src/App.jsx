@@ -246,9 +246,8 @@ const App = () => {
   };
 
   return (
-    <div className="page-wrapper">
-      <NavBar />
       <div className="container">
+      <NavBar />
         {loading ||
           (!partsOfResponse && (
             <div className="main-heading">
@@ -317,7 +316,6 @@ const App = () => {
             )}
           </div>
         )}
-          </div>
         <div className="form-container">
         <form onSubmit={handleSubmit}>
           <input
@@ -327,12 +325,12 @@ const App = () => {
             }}
             value={name}
             placeholder="Enter your name..."
-          />
+            />
           <button
             className="submit"
             type="submit"
             disabled={loading || !name.trim()}
-          >
+            >
             <FaArrowRight />
           </button>
         </form>
@@ -340,8 +338,8 @@ const App = () => {
         Melwyn made me so you could flex your name meaning. Made for fun.
         Powered by Gemini.
       </div>
+            </div>
       </div>
-    </div>
   );
 };
 
