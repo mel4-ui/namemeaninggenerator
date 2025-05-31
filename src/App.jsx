@@ -338,7 +338,7 @@ const App = () => {
         Melwyn made me so you could flex your name meaning. Made for fun.
         Powered by Gemini.
       </div>
-            </div>
+      </div>
       </div>
   );
 };

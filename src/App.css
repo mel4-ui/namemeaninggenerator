@@ -196,9 +196,8 @@ align-items: center;
 .form-container{
   position: -webkit-sticky;
   bottom: 0;
-flex-shrink: 0;
-padding: 1rem;
-background-color: #131313;
+/* flex-shrink: 0;   */
+padding: 0 1rem 1rem 1rem;
 }
 form {
   /* padding: 0 1rem 1rem 1rem; */
@@ -206,7 +205,7 @@ form {
   display: flex;
   width: 100%;
   justify-content: space-between;
-  margin-top: auto;
+  /* margin-top: auto; */
   /* position: fixed; */
 }
 form input {
