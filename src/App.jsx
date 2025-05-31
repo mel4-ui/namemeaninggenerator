@@ -247,9 +247,9 @@ const App = () => {
   };
 
   return (
-    <div className="page-wrapper">
+    <div className="page-wrapper border-2 border-red-500 h-screen flex flex-col overflow-hidden">
       <NavBar />
-      <div className="container">
+      <div className="container flex-1 px-4 py-6 border-2 border-yellow-500 max-w-3xl mx-auto w-full">
         {loading ||
           (!partsOfResponse && (
             <div className="main-heading">
@@ -319,7 +319,7 @@ const App = () => {
           </div>
         )}
           </div>
-        <div className="form-container">
+        <div className="form-container p-4">
         <form onSubmit={handleSubmit}>
           <input
             type="text"
