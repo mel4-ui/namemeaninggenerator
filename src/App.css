@@ -58,7 +58,8 @@ body {
   justify-content: space-between;
   align-items: center;
   color: white;
-  overflow-y: auto;
+  /* overflow-y: auto; */
+  overflow: hidden;
   /* border: 2px solid red; */
 }
 .main-heading{
@@ -193,7 +194,7 @@ align-items: center;
   font-size: 1.3em;
 }
 .form-container{
-  position: sticky;
+  position: fixed;
   bottom: 0;
 flex-shrink: 0;
 padding: 1rem;
