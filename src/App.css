@@ -64,8 +64,8 @@ body {
 .container {
     flex: 1;
     /* position: relative; */
-  /* max-width: 600px; */
-  width: 100%;
+  max-width: 600px;
+  /* width: 100%; */
   margin: 0 auto;
   display: flex;
   /* height: calc(100vh - 20vh);  */
