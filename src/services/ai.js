@@ -32,7 +32,6 @@ Format your response like this:
 `
 
   });
-  console.log(response.text);
   return response;
 }
 
