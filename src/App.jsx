@@ -15,7 +15,7 @@ import { FaArrowRight } from "react-icons/fa";
 import ReactMarkdown from "react-markdown";
 import { MdOutlineFileDownload } from "react-icons/md";
 import { IoShareSocial } from "react-icons/io5";
-import { ClipLoader } from "react-spinners";
+import { MoonLoader } from "react-spinners";
 import PronounceButton from "./services/PronounceButton";
 import { BiCopy } from "react-icons/bi";
 import { FaCheck } from "react-icons/fa6";
@@ -285,7 +285,7 @@ const App = () => {
           ))}
         {loading ? (
           <p className="loader">
-            <ClipLoader color={"#ffffff"} loading={loading} size={50} />
+            <MoonLoader color={"#ffffff"} loading={loading} size={50} />
           </p>
         ) : (
           <div className="output-container">
